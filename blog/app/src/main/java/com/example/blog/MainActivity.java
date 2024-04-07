@@ -2,9 +2,12 @@ package com.example.blog;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Pair;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -37,9 +40,15 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, WelcomePage.class);
-                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, LoginPage.class);
+                Pair[] pairs = new Pair[2];
+                pairs[0] =  new Pair<View,String>(splashScreenImage,"splashScreenImaageAnim");
+                pairs[1]  = new Pair<View,String>(logo,"logoText_Animation");
+
+                ActivityOptions  opt =  ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
+                startActivity(intent, opt.toBundle());
                 finish();
+
             }
         },SPLASH_SCREEN);
 
