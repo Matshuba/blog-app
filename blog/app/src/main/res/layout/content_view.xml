@@ -64,25 +64,25 @@
                 app:layout_constraintVertical_bias="0.938"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
-            <EditText
-                android:id="@+id/editTextDate2"
+            <TextView
+                android:id="@+id/textDate2"
                 android:layout_width="157dp"
                 android:layout_height="29dp"
-                android:ems="10"
-                android:inputType="date"
+                android:text="Date"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titleView2" />
 
-            <EditText
-                android:id="@+id/editTextTime"
+            <TextView
+                android:id="@+id/textTime"
                 android:layout_width="86dp"
                 android:layout_height="42dp"
-                android:ems="10"
-                android:inputType="time"
+                android:text="Time"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
-                app:layout_constraintStart_toEndOf="@+id/editTextDate2"
+                app:layout_constraintStart_toEndOf="@+id/textDate2"
                 app:layout_constraintTop_toBottomOf="@+id/titleView2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
