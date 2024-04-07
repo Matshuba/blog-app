@@ -23,13 +23,15 @@
         android:text="Welcome Back"
         android:transitionName="logoText_Animation"
         android:textSize="40sp"/>
+
     <TextView
-        android:id="@+id/loginLogin"
+        android:id="@+id/loginDescText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login to resume where you left off"
-        android:textSize="18sp"/>
-    
+        android:textSize="18sp"
+        android:transitionName="login_descText" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,6 +39,7 @@
         android:layout_marginBottom="20dp"
         android:orientation="vertical">
         <com.google.android.material.textfield.TextInputLayout
+            android:transitionName="loginEmail_trans"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/loginEmail"
@@ -45,12 +48,14 @@
             <com.google.android.material.textfield.TextInputEditText
 
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/loginPassword"
+            android:transitionName="loginPassword_trans"
             android:hint="Password"
             app:passwordToggleEnabled="true"
             style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox">
@@ -62,8 +67,10 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/login_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:transitionName="login_buttonTrans"
             android:text="Login"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -90,7 +97,9 @@
                android:layout_marginBottom="5dp"
                app:cornerRadius="0dp"/>
            <com.google.android.material.button.MaterialButton
+               android:id="@+id/login_signUp"
                android:layout_width="180dp"
+               android:transitionName="loginSignUp_trans"
                android:layout_height="wrap_content"
                android:text="No account? SignUp"
                android:elevation="0dp"
