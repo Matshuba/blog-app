@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         logo.setAnimation(bottomAnim);
         motto.setAnimation(bottomAnim);
 
-
+        // wow wow
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
