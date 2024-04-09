@@ -13,6 +13,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.blog.pages.LoginPage;
+
 public class MainActivity extends AppCompatActivity {
     private static int  SPLASH_SCREEN = 5000;
     Animation bottomAnim, topAnim;

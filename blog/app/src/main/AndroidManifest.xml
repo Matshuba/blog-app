@@ -13,17 +13,17 @@
         android:theme="@style/Theme.Blog"
         tools:targetApi="31">
         <activity
-            android:name=".ContentPage"
+            android:name=".pages.ContentPage"
 
             android:exported="false" />
         <activity
-            android:name=".SignUpPage"
+            android:name=".pages.SignUpPage"
             android:exported="false" />
         <activity
-            android:name=".DetailPage"
+            android:name=".pages.DetailPage"
             android:exported="false" />
         <activity
-            android:name=".LoginPage"
+            android:name=".pages.LoginPage"
             android:exported="false" />
         <activity
             android:name=".WelcomePage"

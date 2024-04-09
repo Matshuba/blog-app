@@ -1,4 +1,4 @@
-package com.example.blog;
+package com.example.blog.utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.blog.R;
+import com.example.blog.models.ContentModel;
 
 import java.util.ArrayList;
 

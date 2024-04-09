@@ -1,4 +1,4 @@
-package com.example.blog;
+package com.example.blog.pages;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.blog.R;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class SignUpPage extends AppCompatActivity {
@@ -35,7 +36,7 @@ public class SignUpPage extends AppCompatActivity {
         haveAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUpPage.this,LoginPage.class);
+                Intent intent = new Intent(SignUpPage.this, LoginPage.class);
                 Pair[] pairs = new Pair[7];
 
                 pairs[0] = new Pair<View,String>(signUpImage,"splashScreenImaageAnim");
