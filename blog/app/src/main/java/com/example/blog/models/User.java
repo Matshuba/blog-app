@@ -1,7 +1,7 @@
 package com.example.blog.models;
 
 public class User {
-    private String firstName,lastName,userName,email,password;
+    private String firstName,lastName,userName,email,password,id;
     private boolean validUser;
 
 
@@ -16,12 +16,13 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String userName, String email, String password) {
+    public User(String firstName, String lastName, String userName, String email, String password, String id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.email = email;
         this.password = password;
+        this.id = id;
         this.validUser = false;
     }
 
@@ -59,6 +60,14 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setPassword(String password) {

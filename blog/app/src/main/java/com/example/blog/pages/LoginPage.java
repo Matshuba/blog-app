@@ -75,8 +75,11 @@ public class LoginPage extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Intent intent = new Intent(LoginPage.this,ContentPage.class);
-                        startActivity(intent);
+                        if(user != null) {
+                            Intent intent = new Intent(LoginPage.this,ContentPage.class);
+                            startActivity(intent);
+                        }
+
                     }else {
                         Toast.makeText(LoginPage.this, "Login failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }

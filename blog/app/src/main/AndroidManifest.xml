@@ -13,8 +13,10 @@
         android:theme="@style/Theme.Blog"
         tools:targetApi="31">
         <activity
+            android:name=".pages.ContentPostPage"
+            android:exported="false" />
+        <activity
             android:name=".pages.ContentPage"
-
             android:exported="false" />
         <activity
             android:name=".pages.SignUpPage"

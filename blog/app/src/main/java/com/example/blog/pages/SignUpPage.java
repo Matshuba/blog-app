@@ -150,7 +150,7 @@ public class SignUpPage extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()) {
-                        User user = new User(firstName,lastName,userName,email,password);
+                        User user = new User(firstName,lastName,userName,email,password, id);
                         String refId = ref.push().getKey();
                         ref.child(refId).setValue(user);
                     }else{

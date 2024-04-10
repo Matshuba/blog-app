@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.blog.pages.LoginPage;
+import com.google.firebase.FirebaseApp;
 
 public class MainActivity extends AppCompatActivity {
     private static int  SPLASH_SCREEN = 5000;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_main);
 
         //Animations

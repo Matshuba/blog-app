@@ -5,6 +5,9 @@ public class ContentModel {
     String authorname;
     String date;
     String time;
+    String id;
+    String userId;
+
     int image;
 
     public ContentModel(String title, String authorname, String date, String time, int image) {
