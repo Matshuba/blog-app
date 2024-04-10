@@ -12,9 +12,9 @@
         android:title="Post"/>
 
     <item
-        android:icon="@drawable/settings"
-        android:id="@+id/Settings"
-        android:title="Settings"/>
+        android:icon="@drawable/profile"
+        android:id="@+id/profile"
+        android:title="Profile"/>
 
     <item
         android:icon="@drawable/logout"

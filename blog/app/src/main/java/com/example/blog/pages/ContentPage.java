@@ -26,7 +26,6 @@ public class ContentPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_content_page);
         mauth = FirebaseAuth.getInstance();
         user = mauth.getCurrentUser();

@@ -7,10 +7,11 @@ public class ContentModel {
     String time;
     String id;
     String userId;
+    String image;
 
-    int image;
 
-    public ContentModel(String title, String authorname, String date, String time, int image) {
+
+    public ContentModel(String title, String authorname, String date, String time, String image) {
         this.title = title;
         this.authorname = authorname;
         this.date = date;
@@ -34,7 +35,7 @@ public class ContentModel {
         return time;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 }
