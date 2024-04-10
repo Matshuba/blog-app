@@ -5,6 +5,9 @@ public class ContentModel {
     String authorname;
     String date;
     String time;
+
+
+
     String id;
     String userId;
     String image;
@@ -37,5 +40,31 @@ public class ContentModel {
 
     public String getImage() {
         return image;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public static String readTime(String post) {
+        int wordPerMinute = 200;
+        int noOfWords = post.split("\\s+").length;
+        double minutes = (double) noOfWords / wordPerMinute;
+        int roundedMinutes = (int) Math.ceil(minutes);
+
+        String minuteOrMinutes = roundedMinutes == 1 ? "minute" : "minutes";
+        return roundedMinutes + " " + minuteOrMinutes + " read";
     }
 }
