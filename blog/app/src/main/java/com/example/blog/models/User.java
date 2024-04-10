@@ -2,6 +2,19 @@ package com.example.blog.models;
 
 public class User {
     private String firstName,lastName,userName,email,password;
+    private boolean validUser;
+
+
+    public boolean isValidUser() {
+        return validUser;
+    }
+
+    public void setValidUser(boolean validUser) {
+        this.validUser = validUser;
+    }
+
+    public User() {
+    }
 
     public User(String firstName, String lastName, String userName, String email, String password) {
         this.firstName = firstName;
@@ -9,6 +22,7 @@ public class User {
         this.userName = userName;
         this.email = email;
         this.password = password;
+        this.validUser = false;
     }
 
     public String getFirstName() {
@@ -49,5 +63,8 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
     }
 }

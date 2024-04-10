@@ -47,6 +47,9 @@ public class LoginPage extends AppCompatActivity {
                 ActivityOptions opt = ActivityOptions.makeSceneTransitionAnimation(LoginPage.this,pairs);
                 startActivity(intent,opt.toBundle());
             }
+
         });
     }
+
+    
 }
