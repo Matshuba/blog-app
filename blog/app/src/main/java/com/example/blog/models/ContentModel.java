@@ -93,4 +93,6 @@ public class ContentModel {
         String minuteOrMinutes = roundedMinutes == 1 ? "minute" : "minutes";
         return roundedMinutes + " " + minuteOrMinutes + " read";
     }
+
+    //resolve
 }
