@@ -2,32 +2,34 @@ package com.example.blog.models;
 
 public class ContentModel {
     String title;
-    String authorname;
+    String authorName;
     String date;
     String time;
 
-
+    public ContentModel(String title, String authorName, String date, String time, String id, String userId, String image) {
+        this.title = title;
+        this.authorName = authorName;
+        this.date = date;
+        this.time = time;
+        this.id = id;
+        this.userId = userId;
+        this.image = image;
+    }
 
     String id;
     String userId;
     String image;
 
 
-
-    public ContentModel(String title, String authorname, String date, String time, String image) {
-        this.title = title;
-        this.authorname = authorname;
-        this.date = date;
-        this.time = time;
-        this.image = image;
+    public ContentModel() {
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getAuthorname() {
-        return authorname;
+    public String getAuthorName() {
+        return authorName;
     }
 
     public String getDate() {
@@ -58,7 +60,7 @@ public class ContentModel {
         this.userId = userId;
     }
 
-    public static String readTime(String post) {
+    public  static String readTime(String post) {
         int wordPerMinute = 200;
         int noOfWords = post.split("\\s+").length;
         double minutes = (double) noOfWords / wordPerMinute;

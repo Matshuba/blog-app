@@ -76,7 +76,7 @@ public class LoginPage extends AppCompatActivity {
                     if(task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if(user != null) {
-                            Intent intent = new Intent(LoginPage.this,ContentPage.class);
+                            Intent intent = new Intent(LoginPage.this, ContentPostPage.class);
                             startActivity(intent);
                         }
 

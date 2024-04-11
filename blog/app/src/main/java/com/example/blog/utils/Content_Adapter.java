@@ -35,11 +35,11 @@ public class Content_Adapter extends RecyclerView.Adapter<Content_Adapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull Content_Adapter.MyViewHolder holder, int position) {
-        holder.authorname.setText(contentModels.get(position).getAuthorname());
+        holder.authorname.setText(contentModels.get(position).getAuthorName());
         holder.time.setText(contentModels.get(position).getTime());
         holder.title.setText(contentModels.get(position).getTitle());
         holder.date.setText(contentModels.get(position).getDate());
-        holder.imageView.setImageResource(contentModels.get(position).getImage());
+//        holder.imageView.setImageResource(contentModels.get(position).getImage());
 
     }
 

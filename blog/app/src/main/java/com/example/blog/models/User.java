@@ -1,8 +1,12 @@
 package com.example.blog.models;
 
+import java.util.ArrayList;
+
 public class User {
     private String firstName,lastName,userName,email,password,id;
     private boolean validUser;
+
+    ArrayList<String> userPosts;
 
 
     public boolean isValidUser() {
@@ -16,6 +20,14 @@ public class User {
     public User() {
     }
 
+    public ArrayList<String> getUserPosts() {
+        return userPosts;
+    }
+
+    public void setUserPosts(ArrayList<String> userPosts) {
+        this.userPosts = userPosts;
+    }
+
     public User(String firstName, String lastName, String userName, String email, String password, String id) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,6 +36,7 @@ public class User {
         this.password = password;
         this.id = id;
         this.validUser = false;
+        this.userPosts = new ArrayList<>();
     }
 
     public String getFirstName() {

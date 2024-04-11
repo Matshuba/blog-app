@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 public class ContentPage extends AppCompatActivity {
-    FirebaseAuth mauth;
+    FirebaseAuth mAuth;
     FirebaseUser user ;
 
     ArrayList<ContentModel>contentModels;
@@ -27,10 +27,10 @@ public class ContentPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_page);
-        mauth = FirebaseAuth.getInstance();
-        user = mauth.getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         if(user != null) {
-            Log.d("myTag", "user is logged in");
+
 
         }else {
             Log.d("myTag", "user is not logged");
