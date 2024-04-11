@@ -1,17 +1,23 @@
 package com.example.blog.pages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
+<<<<<<< Updated upstream
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+=======
+>>>>>>> Stashed changes
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.blog.utils.Content_Adapter;
 import com.example.blog.R;
 import com.example.blog.models.ContentModel;
+import com.example.blog.utils.Content_Adapter;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,24 +28,42 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+<<<<<<< Updated upstream
 public class ContentPage extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser user ;
     DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference("Posts");
+=======
+public class ContentPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    FirebaseAuth mauth;
+    FirebaseUser user;
+>>>>>>> Stashed changes
 
-    ArrayList<ContentModel>contentModels;
+    ArrayList<ContentModel> contentModels;
     Content_Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_page);
+<<<<<<< Updated upstream
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         if(user != null) {
 
 
         }else {
+=======
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        mauth = FirebaseAuth.getInstance();
+        user = mauth.getCurrentUser();
+        if (user != null) {
+            Log.d("myTag", "user is logged in");
+        } else {
+>>>>>>> Stashed changes
             Log.d("myTag", "user is not logged");
         }
 
@@ -50,6 +74,7 @@ public class ContentPage extends AppCompatActivity {
 
         adapter = new Content_Adapter(this, contentModels);
         recyclerView.setAdapter(adapter);
+<<<<<<< Updated upstream
         rootNode.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -71,5 +96,23 @@ public class ContentPage extends AppCompatActivity {
 
 
 
+=======
+>>>>>>> Stashed changes
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here
+        int id = item.getItemId();
+
+        if (id == R.id.AddArticle) {
+            // Open ContentPostPage activity
+            startActivity(new Intent(this, ContentPostPage.class));
+            return true;
+        }
+
+        // Handle other navigation items here if needed
+
+        return false;
     }
 }
