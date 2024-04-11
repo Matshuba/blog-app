@@ -107,4 +107,5 @@ public class ContentPage extends AppCompatActivity implements NavigationView.OnN
 
         return false;
     }
+
 }

@@ -17,6 +17,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 
+=======
+>>>>>>> Stashed changes
     <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,10 +28,24 @@
         <com.google.android.material.navigation.NavigationView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+<<<<<<< Updated upstream
             android:id="@+id/navigation_view"
             android:layout_gravity="start"
             app:headerLayout="@layout/drawer_header"
             app:menu="@menu/menu">
+=======
+            android:layout_gravity="start"
+            app:headerLayout="@layout/drawer_header"
+            app:menu="@menu/menu">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                />
+        </com.google.android.material.navigation.NavigationView>
+>>>>>>> Stashed changes
 
 
         </com.google.android.material.navigation.NavigationView>
@@ -38,4 +54,11 @@
     </androidx.drawerlayout.widget.DrawerLayout>
 
 
+<<<<<<< Updated upstream
+=======
+
+
+
+
+>>>>>>> Stashed changes
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,19 +11,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+
+
+import com.example.blog.ContentInterface;
+
 import com.example.blog.R;
 import com.example.blog.models.ContentModel;
 
 import java.util.ArrayList;
 
 public class Content_Adapter extends RecyclerView.Adapter<Content_Adapter.MyViewHolder> {
+    private final ContentInterface contentInterface;
     // content adapter
     Context context;
     ArrayList<ContentModel>contentModels;
 
-    public Content_Adapter(Context context, ArrayList<ContentModel> contentModels) {
+    public Content_Adapter(Context context, ArrayList<ContentModel> contentModels,
+                           ContentInterface contentInterface) {
         this.context = context;
         this.contentModels = contentModels;
+        this.contentInterface = contentInterface;
     }
 
     @NonNull
@@ -31,6 +38,11 @@ public class Content_Adapter extends RecyclerView.Adapter<Content_Adapter.MyView
     public Content_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.content_view, parent, false);
         return new MyViewHolder(view) ;
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.content_view, parent, false);
+        return new MyViewHolder(view, contentInterface) ;
+
     }
 
     @Override
@@ -39,7 +51,11 @@ public class Content_Adapter extends RecyclerView.Adapter<Content_Adapter.MyView
         holder.time.setText(contentModels.get(position).getTime());
         holder.title.setText(contentModels.get(position).getTitle());
         holder.date.setText(contentModels.get(position).getDate());
-        Glide.with(context).load(contentModels.get(position).getImage()).into(holder.imageView);
+
+        Glide.with(context).load(contentModels.get(position).getImage()).into(holder.imageView2);
+
+        Glide.with(context).load(contentModels.get(position).getImage()).into(holder.imageView2);
+
 
     }
 
@@ -49,17 +65,35 @@ public class Content_Adapter extends RecyclerView.Adapter<Content_Adapter.MyView
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView title, authorName, date, time;
-        ImageView imageView;
 
-        public MyViewHolder(@NonNull View itemView) {
+
+
+        TextView title, authorname, date, time;
+        ImageView imageView2;
+
+
+        public MyViewHolder(@NonNull View itemView, ContentInterface contentInterface) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageView);
-            title = itemView.findViewById(R.id.titleView2);
-            time = itemView.findViewById(R.id.textTime);
-            date = itemView.findViewById(R.id.textDate2);
-            authorName = itemView.findViewById(R.id.authorView);
 
+            imageView2 = itemView.findViewById(R.id.imageView2);
+            title = itemView.findViewById(R.id.title);
+            time = itemView.findViewById(R.id.time);
+            date = itemView.findViewById(R.id.date);
+            authorname = itemView.findViewById(R.id.authorid);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (contentInterface != null){
+                        int position = getAdapterPosition();
+
+
+                        if (position!= RecyclerView.NO_POSITION){
+                            contentInterface.onPostClick(position);
+                        }
+
+                    }
+                }
+            });
 
         }
     }

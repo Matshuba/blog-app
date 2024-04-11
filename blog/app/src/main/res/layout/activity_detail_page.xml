@@ -45,6 +45,7 @@
 
             <include
                 layout="@layout/card"
+                android:id="@+id/includedCardView"/>
                 />
 
             <View
@@ -55,10 +56,10 @@
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_margin="20dp"
-                android:lineSpacingExtra="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:lineSpacingExtra="20dp"
                 android:text="Hello everyone 👋🏻, we are kicking off a new year, and I don’t want to miss this chance to share with you an article titled Modern Android Developmentin its 2024 version.
                 \n \n
    🚀
