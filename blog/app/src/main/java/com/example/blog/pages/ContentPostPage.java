@@ -22,9 +22,6 @@ import com.example.blog.R;
 import com.example.blog.models.ContentModel;
 import com.example.blog.models.ImageModel;
 import com.example.blog.models.User;
-import com.google.android.gms.common.internal.Objects;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,7 +31,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -47,18 +43,17 @@ public class ContentPostPage extends AppCompatActivity {
     FirebaseUser user;
     FirebaseDatabase rootNode;
     StorageReference storeRef;
-    DatabaseReference refPosts, refImages,usersRef,currentUserRef;
+    DatabaseReference refPosts, refImages, usersRef, currentUserRef;
 
-    TextInputLayout post;
+    TextInputLayout post, postTitle;
     ImageView uploadImage;
     ProgressBar contentUploadProgressBar;
     Button postBtn;
     Uri imageUri;
     ActivityResultLauncher<Intent> launcher;
 
+    String currentUserId, fullName;
 
-    ImageModel imgModel;
-    String currentUserId,  fullName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,32 +66,7 @@ public class ContentPostPage extends AppCompatActivity {
         storeRef = FirebaseStorage.getInstance().getReference();
         usersRef = rootNode.getReference("Users");
 
-        if(user != null) {
-           currentUserId = user.getUid();
-            currentUserRef = usersRef.child(currentUserId);
-
-            currentUserRef.addValueEventListener(new ValueEventListener() {
-               @Override
-               public void onDataChange(@NonNull DataSnapshot snapshot) {
-                   User userModel = snapshot.getValue(User.class);
-                   if(userModel != null) {
-                       fullName = userModel.getFullName();
-                   }
-               }
-
-               @Override
-               public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(ContentPostPage.this,error.toString(),Toast.LENGTH_SHORT);
-               }
-           });
-
-
-        }else {
-            Log.d("myTag", "user is not logged");
-        }
-
-
-
+        postTitle = findViewById(R.id.contentPostTitle);
         post = findViewById(R.id.contentPost_id);
         uploadImage = findViewById(R.id.contentImageUpload);
         postBtn = findViewById(R.id.contentPostButton);
@@ -111,124 +81,108 @@ public class ContentPostPage extends AppCompatActivity {
                         Intent data = result.getData();
                         imageUri = data.getData();
                         uploadImage.setImageURI(imageUri);
-
                     }
                 }
         );
 
-
-        uploadImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent galleryIntent = new Intent();
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                galleryIntent.setType("image/*");
-                launcher.launch(galleryIntent);
-            }
+        uploadImage.setOnClickListener(v -> {
+            Intent galleryIntent = new Intent();
+            galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+            galleryIntent.setType("image/*");
+            launcher.launch(galleryIntent);
         });
 
-
-        postBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                post(v);
-            }
-        });
-
-
-
-
-
+        postBtn.setOnClickListener(v -> post());
     }
 
+    private void post() {
 
-    private boolean isPostValid() {
-        String str = post.getEditText().getText().toString();
-
-        if(str.isEmpty()) {
-            post.setError("Field cant be empty");
-            return false;
-
-        }else {
-            post.setError(null);
-            post.setEnabled(false);
-            return true;
-        }
-    }
-
-
-    private void post(View v) {
         String content = post.getEditText().getText().toString();
-        String contentId = refPosts.push().getKey();
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-        String downloadUri;
-        if(!isPostValid()) {
+        String title = postTitle.getEditText().getText().toString();
+
+        if (content.isEmpty()) {
+            post.setError("Field can't be empty");
             return;
         }
 
-        if(imageUri != null) {
-            uploadToFireBase(imageUri);
+        if (title.isEmpty()) {
+            postTitle.setError("Field can't be empty");
+            return;
         }
 
-        if(imgModel != null) {
-            downloadUri = imgModel.getImageUri();
+        String contentId = refPosts.push().getKey();
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        String downloadUri = "https://revenuearchitects.com/wp-content/uploads/2017/02/Blog_pic-300x170.png";
 
+        if (user != null) {
+            currentUserId = user.getUid();
+            currentUserRef = usersRef.child(currentUserId);
 
-        }else {
-            downloadUri = "https://revenuearchitects.com/wp-content/uploads/2017/02/Blog_pic-300x170.png";
-        }
+            currentUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User userModel = snapshot.getValue(User.class);
 
-
-        ContentModel contentModel = new ContentModel(content,"Sam",date,ContentModel.readTime(content),contentId,currentUserId,downloadUri);
-
-        refPosts.child(contentId).setValue(contentModel);
-
-
-
-
-
-
-
-
-
-    }
-
-    private void uploadToFireBase(Uri uri) {
-        StorageReference fileRef = storeRef.child(System.currentTimeMillis() + "." + getFileExe(uri));
-        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                         imgModel = new ImageModel(uri.toString());
-                         String imgId = refImages.push().getKey();
-                        assert imgId != null;
-                        refImages.child(imgId).setValue(imgModel);
-                         contentUploadProgressBar.setVisibility(View.INVISIBLE);
-
+                    if (userModel != null) {
+                        fullName = userModel.getFirstName() + " "+ userModel.getLastName();
 
                     }
-                });
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                contentUploadProgressBar.setVisibility(View.VISIBLE);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                contentUploadProgressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(ContentPostPage.this,"Uploading Failed!", Toast.LENGTH_SHORT);
-            }
-        });
+                    uploadImageToFirebase(content, title, contentId, date, downloadUri);
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(ContentPostPage.this, error.toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(this, "User is not logged in", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private String getFileExe(Uri mUri) {
-        ContentResolver cr = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cr.getType(mUri));
+    private void uploadImageToFirebase(String content, String title, String contentId, String date, String downloadUri) {
+        if (imageUri != null) {
+            contentUploadProgressBar.setVisibility(View.VISIBLE);
+            StorageReference fileRef = storeRef.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+            fileRef.putFile(imageUri)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        fileRef.getDownloadUrl()
+                                .addOnSuccessListener(uri -> {
+                                    String updatedDownloadUri = uri.toString();
+                                    postContent(content, title, contentId, date, updatedDownloadUri);
+                                })
+                                .addOnFailureListener(e -> {
+                                    contentUploadProgressBar.setVisibility(View.INVISIBLE);
+                                    Toast.makeText(ContentPostPage.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+                                });
+                    })
+                    .addOnFailureListener(e -> {
+                        contentUploadProgressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(ContentPostPage.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+                    });
+        } else {
+            postContent(content, title, contentId, date, downloadUri);
+        }
+    }
+
+
+    private void postContent(String content, String title, String contentId, String date, String downloadUri) {
+        ContentModel contentModel = new ContentModel(title, content, fullName, date, ContentModel.readTime(content), contentId, currentUserId, downloadUri);
+        refPosts.child(contentId).setValue(contentModel)
+                .addOnSuccessListener(aVoid -> {
+                    contentUploadProgressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(ContentPostPage.this, "Content posted successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    contentUploadProgressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(ContentPostPage.this, "Failed to post content", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 }

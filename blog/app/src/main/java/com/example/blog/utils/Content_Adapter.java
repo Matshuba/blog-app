@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.blog.R;
 import com.example.blog.models.ContentModel;
 
@@ -28,18 +29,17 @@ public class Content_Adapter extends RecyclerView.Adapter<Content_Adapter.MyView
     @NonNull
     @Override
     public Content_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.content_view, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.content_view, parent, false);
         return new MyViewHolder(view) ;
     }
 
     @Override
     public void onBindViewHolder(@NonNull Content_Adapter.MyViewHolder holder, int position) {
-        holder.authorname.setText(contentModels.get(position).getAuthorName());
+        holder.authorName.setText("Hard coded for now");
         holder.time.setText(contentModels.get(position).getTime());
         holder.title.setText(contentModels.get(position).getTitle());
         holder.date.setText(contentModels.get(position).getDate());
-//        holder.imageView.setImageResource(contentModels.get(position).getImage());
+        Glide.with(context).load(contentModels.get(position).getImage()).into(holder.imageView);
 
     }
 
@@ -49,7 +49,7 @@ public class Content_Adapter extends RecyclerView.Adapter<Content_Adapter.MyView
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView title, authorname, date, time;
+        TextView title, authorName, date, time;
         ImageView imageView;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -58,7 +58,7 @@ public class Content_Adapter extends RecyclerView.Adapter<Content_Adapter.MyView
             title = itemView.findViewById(R.id.titleView2);
             time = itemView.findViewById(R.id.textTime);
             date = itemView.findViewById(R.id.textDate2);
-            authorname = itemView.findViewById(R.id.authorView);
+            authorName = itemView.findViewById(R.id.authorView);
 
 
         }
