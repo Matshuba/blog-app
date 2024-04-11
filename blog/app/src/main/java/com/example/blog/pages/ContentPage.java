@@ -4,12 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-
-<<<<<<< Updated upstream
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-=======
->>>>>>> Stashed changes
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,16 +24,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-<<<<<<< Updated upstream
-public class ContentPage extends AppCompatActivity {
-    FirebaseAuth mAuth;
-    FirebaseUser user ;
-    DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference("Posts");
-=======
+
+
 public class ContentPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    FirebaseAuth mauth;
+    FirebaseAuth mAuth;
     FirebaseUser user;
->>>>>>> Stashed changes
+    DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference("Posts");
+
 
     ArrayList<ContentModel> contentModels;
     Content_Adapter adapter;
@@ -46,62 +39,61 @@ public class ContentPage extends AppCompatActivity implements NavigationView.OnN
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_page);
-<<<<<<< Updated upstream
+
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        if(user != null) {
-
-
-        }else {
-=======
-
-        NavigationView navigationView = findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        mauth = FirebaseAuth.getInstance();
-        user = mauth.getCurrentUser();
         if (user != null) {
-            Log.d("myTag", "user is logged in");
-        } else {
->>>>>>> Stashed changes
-            Log.d("myTag", "user is not logged");
-        }
+            NavigationView navigationView = findViewById(R.id.navigation_view);
+            navigationView.setNavigationItemSelectedListener(this);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true  );
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        contentModels = new ArrayList<>();
+            mAuth = FirebaseAuth.getInstance();
+            user = mAuth.getCurrentUser();
+            if (user != null) {
+                Log.d("myTag", "user is logged in");
+            } else {
+                Log.d("myTag", "user is not logged");
+            }
 
-        adapter = new Content_Adapter(this, contentModels);
-        recyclerView.setAdapter(adapter);
-<<<<<<< Updated upstream
-        rootNode.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot :snapshot.getChildren()) {
-                    ContentModel contentModel = dataSnapshot.getValue(ContentModel.class);
-                    contentModels.add(contentModel);
+            RecyclerView recyclerView = findViewById(R.id.recycler_view);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            contentModels = new ArrayList<>();
+
+            adapter = new Content_Adapter(this, contentModels);
+            recyclerView.setAdapter(adapter);
+            rootNode.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        ContentModel contentModel = dataSnapshot.getValue(ContentModel.class);
+                        contentModels.add(contentModel);
+
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
                 }
-                adapter.notifyDataSetChanged();
-            }
+            });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+        } else {
 
 
 
 
+        }
 
-=======
->>>>>>> Stashed changes
+
     }
 
+
+
+
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected (MenuItem item){
         // Handle navigation view item clicks here
         int id = item.getItemId();
 
